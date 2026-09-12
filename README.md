@@ -101,9 +101,9 @@ https://gamehacking.org/game/88739
 
 1. Install or load the `SLUS-01214.cht` patch in DuckStation.
 2. Enable **60 FPS** for Toy Story Racer.
-3. Set DuckStation's emulated CPU clock to **150%**.
+3. Set DuckStation's emulated CPU clock to **175%**.
 
-The 150% CPU setting is recommended because the game can slow down when running the 60 FPS patch at the default emulated CPU speed.
+The 175% CPU setting is recommended because the game can slow down when running the 60 FPS patch at the default emulated CPU speed.
 
 The 60 FPS patch is optional and is not required for Archipelago.
 
@@ -142,6 +142,16 @@ Use the **Releases** section of this repository for packaged files:
 - `SLUS-01214.cht`
 
 Do not download random binaries from mirrors or third-party reuploads.
+
+## Development note
+
+This project was created with significant assistance from ChatGPT and could reasonably be described as a "vibe-coded" project.
+
+However, the code was not simply generated and published. It was manually reviewed, modified, tested, debugged, and validated through real Archipelago sessions and DuckStation gameplay.
+
+Special attention was given to synchronization, reconnect behavior, process memory access, error handling, and basic security concerns. Dependencies were also checked for known vulnerabilities before release.
+
+AI was used as a development tool, not as a substitute for testing or verification.
 
 ## Legal
 
