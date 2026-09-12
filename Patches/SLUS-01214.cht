@@ -1,0 +1,11 @@
+; Toy Story Racer (USA) {SLUS-01214}
+; 60 FPS code by SuperMoonKnight
+; Source: https://gamehacking.org/game/88739
+
+[60 FPS]
+Type = Gameshark
+Activation = EndFrame
+Description = Unlocks Toy Story Racer to 60 FPS. Recommended with DuckStation CPU clock at 150%.
+
+800A9134 0001
+800A9400 0001

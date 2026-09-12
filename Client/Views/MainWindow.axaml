@@ -1,0 +1,348 @@
+<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:TSRAP.GUI.ViewModels"
+    x:Class="TSRAP.GUI.Views.MainWindow"
+    x:DataType="vm:MainViewModel"
+    Width="760"
+    Height="820"
+    MinWidth="600"
+    MinHeight="650"
+    Title="TSR Archipelago Client">
+
+    <Grid
+        Margin="20"
+        RowDefinitions="Auto,Auto,Auto,*,Auto"
+        RowSpacing="12">
+
+        <!-- ============================================= -->
+        <!-- HEADER -->
+        <!-- ============================================= -->
+
+        <StackPanel
+            Grid.Row="0"
+            Spacing="10">
+
+            <TextBlock
+                Text="TSR Archipelago Client"
+                FontSize="26"
+                FontWeight="Bold" />
+
+            <Grid
+                ColumnDefinitions="*,*,*"
+                ColumnSpacing="12">
+
+                <Border
+                    Grid.Column="0"
+                    Padding="10"
+                    CornerRadius="6"
+                    Background="#181818">
+
+                    <StackPanel>
+                        <TextBlock
+                            Text="DuckStation"
+                            FontWeight="Bold" />
+
+                        <TextBlock
+                            Text="{Binding DuckStationStatus}" />
+                    </StackPanel>
+
+                </Border>
+
+                <Border
+                    Grid.Column="1"
+                    Padding="10"
+                    CornerRadius="6"
+                    Background="#181818">
+
+                    <StackPanel>
+                        <TextBlock
+                            Text="Toy Story Racer"
+                            FontWeight="Bold" />
+
+                        <TextBlock
+                            Text="{Binding GameStatus}" />
+                    </StackPanel>
+
+                </Border>
+
+                <Border
+                    Grid.Column="2"
+                    Padding="10"
+                    CornerRadius="6"
+                    Background="#181818">
+
+                    <StackPanel>
+                        <TextBlock
+                            Text="Archipelago"
+                            FontWeight="Bold" />
+
+                        <TextBlock
+                            Text="{Binding ArchipelagoStatus}" />
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+
+        </StackPanel>
+
+
+        <!-- ============================================= -->
+        <!-- CONNECTION -->
+        <!-- ============================================= -->
+
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="2*,1.4*,1.4*,Auto"
+            ColumnSpacing="8">
+
+            <TextBox
+                Grid.Column="0"
+                Text="{Binding Server}"
+                Watermark="Server: archipelago.gg:38281" />
+
+            <TextBox
+                Grid.Column="1"
+                Text="{Binding Slot}"
+                Watermark="Slot" />
+
+            <TextBox
+                Grid.Column="2"
+                Text="{Binding Password}"
+                PasswordChar="*"
+                Watermark="Password" />
+
+            <Button
+                Grid.Column="3"
+                Content="Connect"
+                Command="{Binding ConnectCommand}"
+                IsEnabled="{Binding !IsConnecting}"
+                Padding="24,8" />
+
+        </Grid>
+
+
+        <!-- ============================================= -->
+        <!-- STATS -->
+        <!-- ============================================= -->
+
+        <Grid
+            Grid.Row="2"
+            ColumnDefinitions="*,*,*"
+            ColumnSpacing="12">
+
+            <Border
+                Grid.Column="0"
+                Padding="10"
+                Background="#181818"
+                CornerRadius="6">
+
+                <TextBlock
+                    Text="{Binding Soldiers,
+                    StringFormat='Soldiers: {0} / 200'}"
+                    HorizontalAlignment="Center"
+                    FontWeight="Bold" />
+
+            </Border>
+
+            <Border
+                Grid.Column="1"
+                Padding="10"
+                Background="#181818"
+                CornerRadius="6">
+
+                <TextBlock
+                    Text="{Binding Checks,
+                    StringFormat='Checks: {0} / 228'}"
+                    HorizontalAlignment="Center"
+                    FontWeight="Bold" />
+
+            </Border>
+
+            <Border
+                Grid.Column="2"
+                Padding="10"
+                Background="#181818"
+                CornerRadius="6">
+
+                <TextBlock
+                    Text="{Binding GoalTowers,
+                    StringFormat='Goal: {0} Tower(s)'}"
+                    HorizontalAlignment="Center"
+                    FontWeight="Bold" />
+
+            </Border>
+
+        </Grid>
+
+
+        <!-- ============================================= -->
+        <!-- LOG + HINTS -->
+        <!-- ============================================= -->
+
+        <TabControl
+            Grid.Row="3">
+
+            <!-- MAIN LOG -->
+
+            <TabItem
+                Header="Log">
+
+                <Border
+                    Margin="0,8,0,0"
+                    BorderThickness="1"
+                    BorderBrush="#444444"
+                    CornerRadius="5"
+                    Padding="8">
+
+                    <ScrollViewer
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled">
+
+                        <ItemsControl
+                            ItemsSource="{Binding LogLines}">
+
+                            <ItemsControl.ItemTemplate>
+
+                                <DataTemplate
+                                    x:DataType="vm:LogLineViewModel">
+
+                                    <ItemsControl
+                                        ItemsSource="{Binding Parts}"
+                                        Margin="0,2">
+
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+
+                                        <ItemsControl.ItemTemplate>
+
+                                            <DataTemplate
+                                                x:DataType="vm:LogPartViewModel">
+
+                                                <TextBlock
+                                                    Text="{Binding Text}"
+                                                    Foreground="{Binding Foreground}"
+                                                    FontFamily="Consolas"
+                                                    FontSize="13" />
+
+                                            </DataTemplate>
+
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+
+                        </ItemsControl>
+
+                    </ScrollViewer>
+
+                </Border>
+
+            </TabItem>
+
+
+            <!-- HINTS -->
+
+            <TabItem
+                Header="Hints">
+
+                <Border
+                    Margin="0,8,0,0"
+                    BorderThickness="1"
+                    BorderBrush="#444444"
+                    CornerRadius="5"
+                    Padding="8">
+
+                    <ScrollViewer
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled">
+
+                        <ItemsControl
+                            ItemsSource="{Binding HintLines}">
+
+                            <ItemsControl.ItemTemplate>
+
+                                <DataTemplate
+                                    x:DataType="vm:LogLineViewModel">
+
+                                    <ItemsControl
+                                        ItemsSource="{Binding Parts}"
+                                        Margin="0,2">
+
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+
+                                        <ItemsControl.ItemTemplate>
+
+                                            <DataTemplate
+                                                x:DataType="vm:LogPartViewModel">
+
+                                                <TextBlock
+                                                    Text="{Binding Text}"
+                                                    Foreground="{Binding Foreground}"
+                                                    FontFamily="Consolas"
+                                                    FontSize="13" />
+
+                                            </DataTemplate>
+
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+
+                        </ItemsControl>
+
+                    </ScrollViewer>
+
+                </Border>
+
+            </TabItem>
+
+        </TabControl>
+
+
+        <!-- ============================================= -->
+        <!-- CHAT / COMMAND -->
+        <!-- ============================================= -->
+
+        <Grid
+            Grid.Row="4"
+            ColumnDefinitions="*,Auto"
+            ColumnSpacing="8">
+
+            <TextBox
+    Grid.Column="0"
+    Text="{Binding CommandText}"
+    Watermark="Chat or command: !hint, !help, etc.">
+
+    <TextBox.KeyBindings>
+        <KeyBinding
+            Gesture="Enter"
+            Command="{Binding SendCommandCommand}" />
+    </TextBox.KeyBindings>
+
+</TextBox>
+            <Button
+                Grid.Column="1"
+                Content="Send"
+                Command="{Binding SendCommandCommand}"
+                Padding="24,8" />
+
+        </Grid>
+
+    </Grid>
+
+</Window>
